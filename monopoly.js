@@ -1,15 +1,16 @@
 var players = [];
-var tformat = 'name:<br>$money<br><button onclick=btnfxn(index)>btnfxn</button>';
+var tformat = 'name:<br>$money<br><img src=../img/image.png width=80><br><button onclick=btnfxn(index)>btnfxn</button>';
 var payer = '';
 var paid = '';
 
 function setup(n) {
-	
 	for (var i = 0; i < n; i++) {
 		var p = document.getElementById('p'+i).innerHTML;
+		var semind = p.search(';');
 		players[i] = {
-			name: p,
-			money: 1500
+			name: p.substring(0,semind),
+			money: 1500,
+			img: p.substring(semind+1, p.length)
 		}
 	}
 	render('pay');
@@ -17,10 +18,10 @@ function setup(n) {
 
 function render(newbtn) {
 	for (var i = 0; i < players.length; i++) {
-		var rep = tformat.replace('name', players[i].name).replace('index', i).replace('money', players[i].money).replace('btnfxn',newbtn).replace('btnfxn',newbtn);
+		var rep = tformat.replace('name', players[i].name).replace('index', i).replace('money', players[i].money).replace('btnfxn',newbtn).replace('btnfxn',newbtn).replace('image', players[i].img);
 		document.getElementById(i).innerHTML = rep;
 	}
-	var rep = tformat.replace('name', 'BANK').replace('index', -1).replace('$money', 'ALL DA MUNNIES').replace('btnfxn',newbtn).replace('btnfxn',newbtn);
+	var rep = tformat.replace('name', 'BANK').replace('index', -1).replace('$money', 'ALL DA MUNNIES').replace('btnfxn',newbtn).replace('btnfxn',newbtn).replace('image', 'monopoly');
 	document.getElementById(-1).innerHTML = rep;
 }
 
